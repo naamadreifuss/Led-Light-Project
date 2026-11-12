@@ -28,11 +28,11 @@ An end-to-end IoT embedded hardware and mobile application system developed by *
 
 ## Key Features
 
-* **32×16 RGB LED Matrix Display:** Renders custom scrolling text, multi-color pixel art motifs, live BPM readouts, and audio spectrum animations.
+* **32×16 RGB LED Matrix Display:** Renders custom scrolling text, preset multi-color pixel art motifs, user-uploaded gallery images resized via an image downsampling/compression algorithm to fit the 32×16 pixel grid, synchronized song karaoke displaying lyrics line-by-line with dynamic scroll speed, live BPM readouts, and audio spectrum animations.
 * **Dual-Axis Laser Vector Projection:** Projects geometric shapes (heart, star, flower, circle, triangle, smiley, arrow, square) as well as freehand user drawings onto surfaces.
 * **Freehand Vector Path Simplification:** Touch drawings on the mobile canvas are simplified in real time using the **Ramer–Douglas–Peucker (RDP)** algorithm and normalized to a `0–99` coordinate grid for smooth laser tracking.
 * **Camera PPG Heart Rate Monitor:** Measures user pulse via smartphone camera photoplethysmography (PPG) using a custom **Butterworth biquad band-pass filter** and displays live BPM on the LED matrix.
-* **Audio-Reactive / Karaoke Mode:** Captures ambient audio via an I2S digital microphone to drive real-time visualizers.
+* **Audio-Reactive Spectrum Mode:** Captures ambient audio via an I2S digital microphone to drive real-time FFT visualizers.
 
 ---
 
