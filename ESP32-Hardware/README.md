@@ -175,6 +175,7 @@ In the firmware source directory, alongside `FirebaseManager.cpp`, create a file
 #define DATABASE_URL "https://your-project-id-default-rtdb.firebaseio.com"
 #define USER_EMAIL "your_authenticated_user_email"
 #define USER_PASSWORD "your_authenticated_user_password"
+```
 
 ### 2. Board Configuration
 
