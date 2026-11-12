@@ -175,3 +175,46 @@ In the firmware source directory, alongside `FirebaseManager.cpp`, create a file
 #define DATABASE_URL "https://your-project-id-default-rtdb.firebaseio.com"
 #define USER_EMAIL "your_authenticated_user_email"
 #define USER_PASSWORD "your_authenticated_user_password"
+
+### 2. Board Configuration
+
+1. Connect the ESP32 development board using USB.
+2. Select the appropriate ESP32 board in the Arduino IDE.
+3. Select the corresponding COM port.
+4. Verify the required libraries and configuration files are available.
+5. Compile and upload the firmware.
+
+### 3. Initial Wi-Fi Setup
+
+1. Power on the ESP32.
+2. Complete the initial Wi-Fi configuration using the Wi-Fi setup mechanism.
+3. Connect the board to the same Firebase-enabled network environment.
+4. Verify that the firmware establishes communication with Firebase.
+
+After initial configuration, the ESP32 can operate independently without a permanent USB connection.
+
+---
+
+## Security Considerations
+
+- Firebase credentials are stored in a local `secrets.h` file and must not be committed to the repository.
+- The `secrets.h` file should be included in `.gitignore`.
+- Each deployment should use its own Firebase configuration and authentication credentials.
+
+---
+
+## Hardware Notes
+
+- The LED matrix and servo motors require appropriate power supplies for their operating current.
+- Ensure that the hardware and ESP32 share a common ground where required.
+- Verify the laser module's electrical requirements and avoid directing the beam toward people or eyes.
+
+---
+
+## Future Improvements
+
+Potential future firmware extensions include:
+
+- Animated GIF rendering using multiple RGB frames.
+- Improved synchronization and timing of LED animations.
+- Additional laser drawing and trajectory optimization features.
