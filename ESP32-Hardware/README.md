@@ -11,14 +11,14 @@ Embedded C++ firmware for the **ESP32-S3** microcontroller, responsible for real
 | **ESP32-S3** | Main microcontroller (Wi-Fi connectivity, dual-core processing, PWM & I2S) |
 | **32×16 WS2812B LED Matrix** | Addressable RGB LED panel for scrolling text, pixel art, BPM, and audio visualizers |
 | **2× MG90S Micro Servos** | Dual-axis (Pan/Tilt) mechanical actuation for laser beam steering |
-| **KY-008 Laser Module** | 650nm red laser diode mounted on the pan-tilt assembly |
+| ** Laser Module** | red laser diode mounted on the pan-tilt assembly |
 | **INMP441 I2S Microphone** | Omnidirectional digital MEMS microphone for real-time audio sampling |
 
 ---
 
 ## Firmware Architecture
 
-* **`main.cpp` & Firebase Synchronization:** Maintains a persistent connection to Firebase Realtime Database, parsing incoming JSON commands and streaming custom coordinate paths. Uses `state.commandChanged` flags to allow repeated execution of identical icon, text, and mode commands without caching locks.
+* **`main.ino` & Firebase Synchronization:** Maintains a persistent connection to Firebase Realtime Database, parsing incoming JSON commands and streaming custom coordinate paths. Uses `state.commandChanged` flags to allow repeated execution of identical icon, text, and mode commands without caching locks.
 * **`LedController`:** Drives the 32×16 WS2812B LED matrix, handling scrolling text messages, multi-color pixel-art motifs, live BPM display formatting, and real-time audio-reactive visualizations.
 * **`IconController`:** Computes dual-axis servo angle trajectories using parametric equations for preset shapes (heart, star, flower, circle, triangle, smiley, arrow, square) and performs linear vertex interpolation across normalized `0–99` custom drawing paths received from the Android app.
 
