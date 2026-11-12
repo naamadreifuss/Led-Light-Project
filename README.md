@@ -1,6 +1,6 @@
 # Led-Light-Project: Interactive IoT LED Matrix & Laser Projection System
 
-An end-to-end IoT embedded hardware and mobile application system developed by **Na'ama Dreifuss amd Eilon Shany** at the **Technion – Israel Institute of Technology**. The system enables real-time wireless control over a 32×16 RGB LED matrix, a dual-axis servo laser projector, audio-reactive visualizations, and a smartphone camera-based heart rate monitor via Firebase Realtime Database.
+An end-to-end IoT embedded hardware and mobile application system developed by **Na'ama Dreifuss and Eilon Shany** at the **Technion – Israel Institute of Technology**. The system enables real-time wireless control over a 32×16 RGB LED matrix, a dual-axis servo laser projector, audio-reactive visualizations, and a smartphone camera-based heart rate monitor via Firebase Realtime Database.
 
 ---
 
