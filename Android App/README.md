@@ -25,8 +25,10 @@ Native Android mobile application (`com.example.ledlightapp`) serving as the use
 * Filters raw optical intensity signals in real time using a **Kotlin Butterworth biquad band-pass filter** to isolate physiological heart-rate frequencies and compute live BPM.
 * Syncs BPM readouts directly to the ESP32-S3 LED matrix display.
 
-### 3. Matrix & Laser Control Interface
-* Controls LED matrix operating modes, custom scrolling text messages, 32×16 pixel-art motif selection, karaoke/audio-reactive mode, and preset laser vector shapes.
+### 3. Matrix, Gallery Image & Karaoke Control
+* **Gallery Image Resizing & Compression:** Allows users to select any image from their smartphone gallery and downsamples/compresses it into a `32×16` RGB pixel array (`512` pixels) for matrix rendering.
+* **Synchronized Karaoke Mode:** Streams song lyrics line-by-line (`currentLine`) to the matrix while dynamically adjusting text scroll speed (`scrollSpeed`) to match each line's timing.
+* **Matrix & Laser Presets:** Controls operating modes, custom scrolling text, preset pixel-art motifs, audio-reactive visualizers, and preset laser vector shapes.
 
 ---
 
