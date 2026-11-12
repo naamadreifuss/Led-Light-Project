@@ -26,10 +26,15 @@ Embedded C++ firmware for the **ESP32-S3** microcontroller, responsible for real
 
 ## Build & Flash Instructions
 
-1. Open the firmware folder in **Arduino IDE** or **VS Code (PlatformIO)**.
-2. Install the required libraries via Library Manager:
-   * `FastLED` / `Adafruit_NeoMatrix` (WS2812B matrix control)
-   * `ESP32Servo` (PWM control for MG90S servos)
-   * `Firebase_ESP_Client` (Firebase Realtime Database streaming)
-3. Configure your Wi-Fi credentials (`SSID`, `PASSWORD`) and Firebase credentials (`DATABASE_URL`, `API_KEY`) in the configuration header.
-4. Select the **ESP32-S3 Dev Module** board, connect via USB, and upload the firmware.
+### 1. Firebase & Credentials Setup
+For security reasons, API keys and user credentials are excluded from this repository. Before compiling, you must configure your own Firebase project:
+
+1. Create a new project in the [Firebase Console](https://console.firebase.google.com/).
+2. Enable **Realtime Database** and **Authentication** (enable the **Email/Password** sign-in provider and create a user account).
+3. In the firmware source folder (alongside `FirebaseManager.cpp`), create a new file named **`secrets.h`** and add your project credentials:
+
+```cpp
+#define API_KEY "your_firebase_web_api_key"
+#define DATABASE_URL "[https://your-project-id-default-rtdb.firebaseio.com](https://your-project-id-default-rtdb.firebaseio.com)"
+#define USER_EMAIL "your_authenticated_user_email"
+#define USER_PASSWORD "your_authenticated_user_password"
