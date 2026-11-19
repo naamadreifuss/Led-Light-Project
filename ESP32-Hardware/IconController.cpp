@@ -19,8 +19,8 @@ void IconController::begin(
     servoX.setPeriodHertz(50); // ESP32 works with 50Hz, pulse every 20ms
     servoY.setPeriodHertz(50);
 
-    servoX.attach(servoXPin, 500, 2400); // angle 0 = 500us, 180 = 2400us
-    servoY.attach(servoYPin, 500, 2400); // angle 90 = 1500us
+    servoX.attach(servoXPin, 500, 2400);
+    servoY.attach(servoYPin, 500, 2400);
 
     // Laser initialization
     pinMode(laserPin, OUTPUT);
@@ -51,7 +51,7 @@ void IconController::laserOff()
 void IconController::moveTo(int x, int y)
 {
     servoX.writeMicroseconds(constrain(x, 600, 2300));
-    servoY.writeMicroseconds(constrain(y, 950, 2200)); // 950 min protects Y servo from mechanical binding
+    servoY.writeMicroseconds(constrain(y, 950, 2200));
 }
 
 // Turn off laser and return to neutral center to prevent gear backlash drift
@@ -124,7 +124,6 @@ void IconController::drawHeart()
 
     laserOn();
 
-    // 1. Top-right rounded dome (cleft -> right shoulder)
     drawBezierSegment(
         cleftX, cleftY,
         cx + r * 0.14f, cy + r * 1.00f,
@@ -133,7 +132,6 @@ void IconController::drawHeart()
         11, 20
     );
 
-    // 2. Right curved side (right shoulder -> bottom tip)
     drawBezierSegment(
         rightX, rightY,
         cx + r * 0.96f, cy - r * 0.22f,
@@ -144,7 +142,6 @@ void IconController::drawHeart()
 
     delay(60);
 
-    // 3. Left curved side (bottom tip -> left shoulder)
     drawBezierSegment(
         tipX, tipY,
         cx - r * 0.52f, cy - r * 0.64f,
@@ -153,7 +150,6 @@ void IconController::drawHeart()
         12, 20
     );
 
-    // 4. Top-left rounded dome (left shoulder -> top cleft)
     drawBezierSegment(
         leftX, leftY,
         cx - r * 0.96f, cy + r * 1.00f,
@@ -225,12 +221,11 @@ void IconController::drawSun()
     Serial.println("Drawing sun");
     float cx = BASE_X;
     float cy = BASE_Y - 30; // 1270
-    float rSun = 88.0f;     // Center circle radius
-    float rIn = 110.0f;     // Air gap outside center circle
-    float rOut = 158.0f;    // Outer tip of each ray
-    float ySquash = 0.72f;  // Keeps center circle & ray ring round on wall
+    float rSun = 88.0f;
+    float rIn = 110.0f;
+    float rOut = 158.0f;
+    float ySquash = 0.72f;
 
-    // 1. Center sun circle (34 steps + 3 overlap @ 20ms)
     moveTo((int)round(cx), (int)round(cy - rSun * ySquash));
     delay(250);
     laserOn();
@@ -245,7 +240,6 @@ void IconController::drawSun()
     }
     laserOff();
 
-    // 2. Eight separate straight rays (0, 45, 90, 135, 180, 225, 270, 315 deg)
     for (int k = 0; k < 8; k++) {
         float rad = (k * 45.0f) * PI / 180.0f;
         float x0 = cx + rIn * cos(rad);
@@ -275,7 +269,6 @@ void IconController::drawSadSmiley()
     float r = 138.0f;
     float ySquash = 0.72f;
 
-    // 1. Round face outline (40 steps + 2 overlap)
     moveTo((int)round(cx), (int)round(cy - r * ySquash));
     delay(250);
     laserOn();
@@ -290,7 +283,6 @@ void IconController::drawSadSmiley()
     }
     laserOff();
 
-    // 2. Left Eye (stationary dot)
     int leftEyeX = (int)round(cx - 48);
     int leftEyeY = (int)round(cy + 28);
     moveTo(leftEyeX, leftEyeY);
@@ -299,7 +291,6 @@ void IconController::drawSadSmiley()
     delay(140);
     laserOff();
 
-    // 3. Right Eye (stationary dot)
     int rightEyeX = (int)round(cx + 48);
     int rightEyeY = (int)round(cy + 28);
     moveTo(rightEyeX, rightEyeY);
@@ -308,7 +299,6 @@ void IconController::drawSadSmiley()
     delay(140);
     laserOff();
 
-    // 4. Sad Frown Arc (195 deg -> -15 deg)
     float frownRx = 78.0f;
     float frownRy = 68.0f;
     float frownCenterY = cy - 58;
@@ -342,10 +332,10 @@ void IconController::drawTriangle()
     int centerY = BASE_Y - 50; // 1250
 
     int points[4][2] = {
-        {centerX - 152, centerY - 72},  // 0: Bottom-Left
-        {centerX + 152, centerY - 72},  // 1: Bottom-Right
-        {centerX,       centerY + 128}, // 2: Top Peak
-        {centerX - 152, centerY - 72}   // 3: Close at Bottom-Left
+        {centerX - 152, centerY - 72},
+        {centerX + 152, centerY - 72},
+        {centerX,       centerY + 128},
+        {centerX - 152, centerY - 72}
     };
 
     moveTo(points[0][0], points[0][1]);
@@ -384,7 +374,6 @@ void IconController::drawSmiley()
     float r = 138.0f;
     float ySquash = 0.72f;
 
-    // 1. Round face outline (40 steps + 2 overlap)
     moveTo((int)round(cx), (int)round(cy - r * ySquash));
     delay(250);
     laserOn();
@@ -399,7 +388,6 @@ void IconController::drawSmiley()
     }
     laserOff();
 
-    // 2. Left Eye (stationary dot)
     int leftEyeX = (int)round(cx - 48);
     int leftEyeY = (int)round(cy + 28);
     moveTo(leftEyeX, leftEyeY);
@@ -408,7 +396,6 @@ void IconController::drawSmiley()
     delay(140);
     laserOff();
 
-    // 3. Right Eye (stationary dot)
     int rightEyeX = (int)round(cx + 48);
     int rightEyeY = (int)round(cy + 28);
     moveTo(rightEyeX, rightEyeY);
@@ -417,7 +404,6 @@ void IconController::drawSmiley()
     delay(140);
     laserOff();
 
-    // 4. Deep Happy U-Smile Arc (185 deg -> 355 deg)
     float smileRx = 78.0f;
     float smileRy = 68.0f;
     float smileCenterY = cy - 4;
@@ -451,14 +437,14 @@ void IconController::drawArrow()
     int centerY = BASE_Y - 35; // 1265
 
     int points[8][2] = {
-        {centerX - 38,  centerY - 110}, // Stem Bottom-Left
-        {centerX + 38,  centerY - 110}, // Stem Bottom-Right
-        {centerX + 38,  centerY + 6},   // Stem Top-Right
-        {centerX + 112, centerY + 6},   // Arrow Head Right Tip
-        {centerX,       centerY + 110}, // Arrow Top Point
-        {centerX - 112, centerY + 6},   // Arrow Head Left Tip
-        {centerX - 38,  centerY + 6},   // Stem Top-Left
-        {centerX - 38,  centerY - 110}  // Close loop back to start
+        {centerX - 38,  centerY - 110},
+        {centerX + 38,  centerY - 110},
+        {centerX + 38,  centerY + 6},
+        {centerX + 112, centerY + 6},
+        {centerX,       centerY + 110},
+        {centerX - 112, centerY + 6},
+        {centerX - 38,  centerY + 6},
+        {centerX - 38,  centerY - 110}
     };
     int edgeSteps[7] = {5, 7, 4, 9, 9, 4, 7};
 
@@ -499,7 +485,7 @@ void IconController::drawSquare()
         {centerX + halfW, centerY + halfH},
         {centerX + halfW, centerY - halfH},
         {centerX - halfW, centerY - halfH},
-        {centerX - halfW, centerY + halfH} // Close loop
+        {centerX - halfW, centerY + halfH}
     };
     int edgeSteps[4] = {14, 10, 14, 10};
 
@@ -534,70 +520,70 @@ void IconController::drawCustomIcon(
     const std::vector<CustomIconPoint>& points
 )
 {
-    Serial.println("Drawing custom icon");
+    Serial.println("Drawing custom icon | raw points: " + String(points.size()));
 
-    // Check that there are enough points to draw
     if (points.size() < 2)
     {
         Serial.println("Not enough points for custom icon");
         return;
     }
 
-    // Convert canvas coordinates (0-100) to servo pulse values.
-    // The range 1300-1700 matches the scale used by built-in icons.
+    // Match the exact scale, aspect ratio, and wall height of the 8 tuned icons:
+    // Canvas X (0..100) -> Servo X (1360..1640, centered at BASE_X = 1500)
     auto mapX = [](float x)
     {
-        return constrain((int)(1300 + x * 4), 1300, 1700);
+        return constrain((int)round(BASE_X + (x - 50.0f) * 2.8f), 1320, 1680);
     };
 
+    // Canvas Y (0=top..100=bottom) -> Servo Y (1370=top..1170=bottom, centered at 1270)
     auto mapY = [](float y)
     {
-        return constrain((int)(1300 + y * 4), 1300, 1700);
+        return constrain((int)round((BASE_Y - 30) + (50.0f - y) * 2.0f), 1140, 1400);
     };
 
-    // Move to the first point while the laser is OFF
-    moveTo(
-        mapX(points[0].x),
-        mapY(points[0].y)
-    );
+    int prevX = mapX(points[0].x);
+    int prevY = mapY(points[0].y);
 
-    delay(100);
+    moveTo(prevX, prevY);
+    delay(250);
 
-    // Start drawing
     laserOn();
 
-    // Draw the path in the exact order received from Firebase
-    for (size_t i = 1; i < points.size(); i++)
+    int totalFrames = 0;
+    const int MAX_FRAMES = 120; // Cap at ~2.4s so dense scribbles don't stall loop()
+
+    for (size_t i = 1; i < points.size() && totalFrames < MAX_FRAMES; i++)
     {
-        int x1 = mapX(points[i - 1].x);
-        int y1 = mapY(points[i - 1].y);
+        int nextX = mapX(points[i].x);
+        int nextY = mapY(points[i].y);
 
-        int x2 = mapX(points[i].x);
-        int y2 = mapY(points[i].y);
+        float dist = hypot((float)(nextX - prevX), (float)(nextY - prevY));
 
-        // Calculate the number of intermediate movements
-        int distanceX = abs(x2 - x1);
-        int distanceY = abs(y2 - y1);
-
-        int steps = max(distanceX, distanceY) / 5;
-
-        if (steps < 1)
-            steps = 1;
-
-        // Interpolate between consecutive points for smoother movement
-        for (int step = 1; step <= steps; step++)
+        // Merge dense touchscreen points (< 14us) until distance reaches the servo sweet spot
+        if (dist < 14.0f && i < points.size() - 1)
         {
-            int currentX = x1 + (x2 - x1) * step / steps;
-            int currentY = y1 + (y2 - y1) * step / steps;
+            continue;
+        }
+
+        // Subdivide long jumps into ~17us steps synced to 50Hz (20ms) frames
+        int steps = max(1, (int)round(dist / 17.0f));
+
+        for (int step = 1; step <= steps && totalFrames < MAX_FRAMES; step++)
+        {
+            int currentX = prevX + (nextX - prevX) * step / steps;
+            int currentY = prevY + (nextY - prevY) * step / steps;
 
             moveTo(currentX, currentY);
-
-            delay(5);
+            delay(20);
+            totalFrames++;
         }
+
+        prevX = nextX;
+        prevY = nextY;
     }
 
-    // Finish drawing and return to neutral center
+    delay(60);
     returnToCenter();
 
-    Serial.println("Custom icon finished");
+    Serial.println("Custom icon finished | frames executed: " + String(totalFrames));
 }
